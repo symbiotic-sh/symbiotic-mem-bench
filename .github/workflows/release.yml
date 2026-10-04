@@ -12,8 +12,15 @@ concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 
+# Shared build settings for every job (operator 2026-10-05), set here because the
+# repository ignores .cargo/. The toolchain comes from the action input above each
+# build, matching rust-toolchain.toml; optimization stays at Cargo's defaults in CI.
 env:
   CARGO_TERM_COLOR: always
+  CARGO_BUILD_RUSTFLAGS: "-Zthreads=8"
+  CARGO_UNSTABLE_TRIM_PATHS: "true"
+  CARGO_PROFILE_DEV_TRIM_PATHS: all
+  CARGO_PROFILE_RELEASE_TRIM_PATHS: all
 
 jobs:
   preflight:
@@ -24,8 +31,9 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - uses: dtolnay/rust-toolchain@d8dfd7155fea72af4ad34a8fe97364d210e2d020 # 1.93.0
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # master
         with:
+          toolchain: nightly-2026-10-03
           components: rustfmt, clippy
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -76,8 +84,9 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: dtolnay/rust-toolchain@d8dfd7155fea72af4ad34a8fe97364d210e2d020 # 1.93.0
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # master
         with:
+          toolchain: nightly-2026-10-03
           components: rustfmt, clippy
       - name: private adapter exact-pin compatibility gate
         env:
@@ -110,7 +119,9 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
-      - uses: dtolnay/rust-toolchain@d8dfd7155fea72af4ad34a8fe97364d210e2d020 # 1.93.0
+      - uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # master
+        with:
+          toolchain: nightly-2026-10-03
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:

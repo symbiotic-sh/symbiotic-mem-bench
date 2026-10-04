@@ -27,8 +27,8 @@ serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 sha2 = "0.10"
 symbiotic-core = { git = "https://github.com/symbiotic-sh/symbiotic-foundation", rev = "814060cd3c31b976234c171608196293c1fed4eb" }
-symbiotic-memory-config = { git = "ssh://git@github.com/symbiotic-sh/symbiotic-memory", rev = "1c268bbe319e5286eb669f02e4e096b95aef488c" }
-symbiotic-memory = { git = "ssh://git@github.com/symbiotic-sh/symbiotic-memory", rev = "1c268bbe319e5286eb669f02e4e096b95aef488c", default-features = false, features = ["http", "cli"] }
+symbiotic-memory-config = { git = "ssh://git@github.com/symbiotic-sh/symbiotic-memory", rev = "b99ff63f379993c6a1c2cbef611a8a22d26b7056" }
+symbiotic-memory = { git = "ssh://git@github.com/symbiotic-sh/symbiotic-memory", rev = "b99ff63f379993c6a1c2cbef611a8a22d26b7056", default-features = false, features = ["http", "cli"] }
 symbiotic-queue = { git = "https://github.com/symbiotic-sh/symbiotic-foundation", rev = "814060cd3c31b976234c171608196293c1fed4eb" }
 tempfile = "3"
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "sync", "time"] }

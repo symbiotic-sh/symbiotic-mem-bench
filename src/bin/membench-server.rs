@@ -304,7 +304,7 @@ async fn main() -> anyhow::Result<()> {
         "membench-server v{} (git {}, bin {}) listening on http://{addr}",
         env!("CARGO_PKG_VERSION"),
         option_env!("GIT_SHA").unwrap_or("unknown"),
-        &*BINARY_SHA,
+        BINARY_SHA.as_str(),
     );
     eprintln!("registry roots: {:?}", state.roots);
     axum::serve(listener, app).await?;
