@@ -1,5 +1,11 @@
 # v2 Multimodal Recall Experiment — Lanes, Model Slots, Ladder
 
+> Implementation note (2026-08-22): the provider-neutral A–E contract, offline control, fixture
+> schema, oracle evidence regions, cost gates, and fired proofs now live in
+> [`../multimodal-recall-apparatus.md`](../multimodal-recall-apparatus.md). Model/provider names in
+> this historical design are hypotheses, not current availability or pricing claims. Native arms
+> remain capability-gated until a product adapter implements the public seam.
+
 **Scope:** the concrete, bench-first prove-out of multimodal recall on **LongMemEval-v2**. This doc
 rides on [`04-benchmark-multimodal-core.md`](04-benchmark-multimodal-core.md) — 04 is the *plumbing*
 (the `Content=[ContentPart]` spine, `MediaRef`+sha256 media store, `BenchmarkManifest`, the

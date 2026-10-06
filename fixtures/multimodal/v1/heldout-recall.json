@@ -1,0 +1,26 @@
+{
+  "schema": "membench.multimodal_fixture.v1",
+  "fixture_set_id": "multimodal-heldout-recall-v2",
+  "split": "held_out",
+  "source": {"dataset_id":"membench-multimodal-heldout","version":"2","source_digest":"435a5a85cee59ad274d0559d229cfa918188b05a751c87ca0aa5bbea52ccf411","source_uri":null,"official_equivalent":false},
+  "corpora": [
+    {"corpus_id":"web","evidence":[
+      {"evidence_id":"incident-screenshot-state-3","source_media":{"asset_id":"incident-dashboard","locator":"assets/incident.svg","sha256":"5a4e7ee9d966a548297f0b3fe77a2f4e5b5cac77918b5eca78b33f39262015b3","media_type":"image/svg+xml","size_bytes":380},"region":{"kind":"screenshot","trajectory_id":"web-incident-trajectory","state_index":3,"locator":"incident.svg"},"text_projection":"incident card 42; severity value is not exposed in the accessibility tree"},
+      {"evidence_id":"web-distractor-state-1","source_media":{"asset_id":"distractor-notes","locator":"assets/distractor.txt","sha256":"9f0ad73e7a7f3c97dcf478d81dc73443b13cbe6293e64c33cab4c82315cf04f6","media_type":"text/plain","size_bytes":108},"region":{"kind":"screenshot","trajectory_id":"web-distractor-trajectory","state_index":1,"locator":"distractor.txt"},"text_projection":"archived unrelated meeting notes"}
+    ]},
+    {"corpus_id":"documents","evidence":[
+      {"evidence_id":"invoice-page-2-total","source_media":{"asset_id":"invoice-2026-041","locator":"assets/invoice.pdf","sha256":"b6802709c01c7458b085f2a68c3a93264d8728029666b68947d1819aae94bce8","media_type":"application/pdf","size_bytes":900},"region":{"kind":"page","document_id":"invoice-2026-041","page_number":2},"text_projection":"invoice 2026-041 total $1,284.50"},
+      {"evidence_id":"document-distractor-page-1","source_media":{"asset_id":"distractor-notes","locator":"assets/distractor.txt","sha256":"9f0ad73e7a7f3c97dcf478d81dc73443b13cbe6293e64c33cab4c82315cf04f6","media_type":"text/plain","size_bytes":108},"region":{"kind":"page","document_id":"unrelated-notes","page_number":1},"text_projection":"archived unrelated meeting notes"}
+    ]},
+    {"corpus_id":"workbooks","evidence":[
+      {"evidence_id":"forecast-q2-table","source_media":{"asset_id":"regional-forecast","locator":"assets/forecast.csv","sha256":"848b7042fb1efdd1d4896c617bac146512bd6f7b841e8d4865e2b3f1ef864cf3","media_type":"text/csv","size_bytes":86},"region":{"kind":"sheet","workbook_id":"regional-forecast","sheet_name":"Q2","range":"B2:C4"},"text_projection":"Q2 regional forecast table; net revenue 91300 USD"},
+      {"evidence_id":"forecast-q2-cell-c4","source_media":{"asset_id":"regional-forecast","locator":"assets/forecast.csv","sha256":"848b7042fb1efdd1d4896c617bac146512bd6f7b841e8d4865e2b3f1ef864cf3","media_type":"text/csv","size_bytes":86},"region":{"kind":"cell","workbook_id":"regional-forecast","sheet_name":"Q2","cell":"C4"},"text_projection":"91300"},
+      {"evidence_id":"workbook-distractor-sheet","source_media":{"asset_id":"distractor-notes","locator":"assets/distractor.txt","sha256":"9f0ad73e7a7f3c97dcf478d81dc73443b13cbe6293e64c33cab4c82315cf04f6","media_type":"text/plain","size_bytes":108},"region":{"kind":"sheet","workbook_id":"unrelated-notes","sheet_name":"Archive","range":"A1:A1"},"text_projection":"archived unrelated meeting notes"}
+    ]}
+  ],
+  "cases": [
+    {"case_id":"lmev2-image-incident-severity","origin":"long_mem_eval_v2","corpus_id":"web","question":{"text":"Which severity badge is visible on the incident card?"},"gold":{"value":"critical","scoring":{"kind":"contains_all","case_sensitive":false}},"media_dependent":true,"media_dependence_review":{"reviewed_by":"membench-fixture-review","rationale":"The label is visible only in source pixels."},"oracle_lane":"native","oracle_evidence":[{"kind":"screenshot","trajectory_id":"web-incident-trajectory","state_index":3,"locator":"incident.svg","bounds":{"x":0.52,"y":0.12,"width":0.36,"height":0.18}}]},
+    {"case_id":"pdf-invoice-total-page-2","origin":"held_out_pdf","corpus_id":"documents","question":{"text":"What is the total on invoice 2026-041?"},"gold":{"value":"$1,284.50","scoring":{"kind":"contains_all","case_sensitive":false}},"media_dependent":true,"media_dependence_review":{"reviewed_by":"membench-fixture-review","rationale":"The answer originates from the PDF source."},"oracle_lane":"hybrid_collapsed","oracle_evidence":[{"kind":"page","document_id":"invoice-2026-041","page_number":2,"bounds":{"x":0.58,"y":0.74,"width":0.32,"height":0.12}}]},
+    {"case_id":"spreadsheet-q2-net-revenue","origin":"held_out_spreadsheet","corpus_id":"workbooks","question":{"text":"What is Q2 net revenue in the regional forecast?"},"gold":{"value":"91300","scoring":{"kind":"contains_all","case_sensitive":false}},"media_dependent":true,"media_dependence_review":{"reviewed_by":"membench-fixture-review","rationale":"The answer originates from a spreadsheet cell."},"oracle_lane":"hybrid_collapsed","oracle_evidence":[{"kind":"sheet","workbook_id":"regional-forecast","sheet_name":"Q2","range":"B2:C4"},{"kind":"cell","workbook_id":"regional-forecast","sheet_name":"Q2","cell":"C4"}]}
+  ]
+}

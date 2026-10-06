@@ -13,6 +13,7 @@ pub mod jsonutil;
 pub mod leaderboard;
 pub mod leaderboard_export;
 pub mod live;
+pub mod multimodal;
 pub mod proto;
 pub mod registry;
 pub mod runner;

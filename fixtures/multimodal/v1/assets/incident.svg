@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#101820"/>
+  <rect x="330" y="44" width="230" height="72" rx="10" fill="#b71c1c"/>
+  <text x="445" y="89" text-anchor="middle" fill="white" font-size="28">CRITICAL</text>
+  <text x="32" y="320" fill="white" font-size="18">Incident card 42</text>
+</svg>

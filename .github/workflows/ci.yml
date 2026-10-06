@@ -34,6 +34,13 @@ jobs:
         run: cargo clippy --all-targets --features server -- -D warnings
       - name: test (core)
         run: cargo test
+      - name: product multimodal conformance (requires sibling checkout)
+        run: |
+          if git -C ../symbiotic-memory rev-parse --git-dir >/dev/null 2>&1; then
+            cargo run --locked --bin membench-product-conformance -- --product-root ../symbiotic-memory
+          else
+            echo "::notice::product conformance not closed: sibling ../symbiotic-memory checkout is unavailable"
+          fi
       - name: test (server)
         run: cargo test --features server
       - name: production build (server)

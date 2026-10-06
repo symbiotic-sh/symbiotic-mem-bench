@@ -29,6 +29,7 @@ axum = { version = "0.8", optional = true }
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "signal", "sync", "time"], optional = true }
 tower-http = { version = "0.6", features = ["fs", "cors"], optional = true }
 tempfile = "3"
+libc = "0.2"
 
 [build-dependencies]
 prost-build = "0.14"
@@ -43,3 +44,7 @@ required-features = ["server"]
 name = "membench-leaderboard"
 path = "src/bin/membench-leaderboard.rs"
 # Core-only (clap + lib): intentionally builds without any cargo features.
+
+[[bin]]
+name = "membench-product-conformance"
+path = "src/bin/membench-product-conformance.rs"

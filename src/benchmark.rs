@@ -839,6 +839,46 @@ pub enum JudgeKind {
     Generic,
 }
 
+/// LongMemEval-v2 scorer plug-in for the provider-neutral multimodal apparatus.
+///
+/// Deterministic official evaluators run locally. Evaluators that require the official LLM judge
+/// remain explicit errors here; the caller must supply the benchmark's judge-backed scorer rather
+/// than silently substituting a different rubric.
+#[derive(Clone, Copy, Debug, Default)]
+pub struct LongMemEvalV2MultimodalScorer;
+
+impl crate::multimodal::MultimodalScorer for LongMemEvalV2MultimodalScorer {
+    fn scorer_id(&self) -> &str {
+        "longmemeval-v2-official-local-v1"
+    }
+
+    fn score(
+        &self,
+        rule: &crate::multimodal::ScoringRule,
+        gold: &str,
+        answer: &str,
+    ) -> anyhow::Result<bool> {
+        match rule {
+            crate::multimodal::ScoringRule::External { evaluator } => {
+                match grade_v2(evaluator, gold, answer)? {
+                    GradeOutcome::Deterministic(correct) => Ok(correct),
+                    GradeOutcome::Unsupported(judge) => anyhow::bail!(
+                        "LongMemEval-v2 evaluator '{}' requires the official '{}' judge capability",
+                        evaluator,
+                        judge.id()
+                    ),
+                }
+            }
+            _ => crate::multimodal::MultimodalScorer::score(
+                &crate::multimodal::DeterministicScorer,
+                rule,
+                gold,
+                answer,
+            ),
+        }
+    }
+}
+
 impl JudgeKind {
     pub fn id(&self) -> &'static str {
         match self {

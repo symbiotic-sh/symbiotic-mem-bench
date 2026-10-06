@@ -3,10 +3,11 @@
 use std::fs;
 
 use membench::benchmark::{
-    BenchmarkLoader, GradeOutcome, HaystackScope, JudgeKind, LongMemEvalV2Text, grade_v2,
-    loader_for,
+    BenchmarkLoader, GradeOutcome, HaystackScope, JudgeKind, LongMemEvalV2MultimodalScorer,
+    LongMemEvalV2Text, grade_v2, loader_for,
 };
 use membench::eligibility::NON_PROMOTABLE_BENCHMARKS;
+use membench::multimodal::{MultimodalScorer, ScoringRule};
 use serde_json::json;
 
 fn write_fixture() -> tempfile::TempDir {
@@ -307,6 +308,32 @@ fn v2_deterministic_graders_and_judge_routing_are_typed() {
             .to_string(),
         "unknown LongMemEval-v2 eval function 'future_checker'"
     );
+}
+
+#[test]
+fn v2_multimodal_scorer_uses_official_deterministic_rules_and_fails_on_missing_judge() {
+    let scorer = LongMemEvalV2MultimodalScorer;
+    assert!(
+        scorer
+            .score(
+                &ScoringRule::External {
+                    evaluator: "mc_choice_match|require_non_empty=true".to_string(),
+                },
+                "B",
+                r"\boxed{Option B}",
+            )
+            .unwrap()
+    );
+    let error = scorer
+        .score(
+            &ScoringRule::External {
+                evaluator: "llm_gotchas_checker|require_non_empty=true".to_string(),
+            },
+            "expected",
+            "candidate",
+        )
+        .unwrap_err();
+    assert!(error.to_string().contains("requires the official"));
 }
 
 #[test]
