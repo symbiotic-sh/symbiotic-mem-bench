@@ -2,7 +2,7 @@
 
 Thanks for your interest in membench — the neutral benchmark harness for memory systems.
 
-Shared collaboration, Git, verification, and security rules: House Rules (`~/p/house-rules/AGENTS.md`).
+This project follows [House Rules](https://github.com/jak-pan/house-rules) for collaboration, Git, verification and security. Repository rules are in [AGENTS.md](AGENTS.md).
 
 ## Benchmark integrity
 
