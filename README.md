@@ -552,3 +552,7 @@ via `SECURITY.md`; release process in `RELEASING.md`.
 - `docs/bench-explorer-design.md`: explorer, comparison, and viewer design (incl. the web dashboard).
 - `dashboard/README.md`: dashboard develop/build/run instructions.
 - `skills/membench/SKILL.md`: Codex skill for running and inspecting this benchmark harness.
+
+## Working on this repository
+
+This repository uses [House Rules](https://github.com/jak-pan/house-rules) as the base rules for agentic work, and Warden, our review service, reviews its pull requests on request. If you work here, with or without an agent, follow House Rules too. This repository's own rules, including any that tighten or loosen House Rules, are in [AGENTS.md](AGENTS.md).

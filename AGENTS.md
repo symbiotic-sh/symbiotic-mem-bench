@@ -1,6 +1,8 @@
 # Agent Instructions
 
-Shared collaboration, Git, verification, and security rules: House Rules (`~/p/house-rules/AGENTS.md`).
+Base rules: [House Rules](https://github.com/jak-pan/house-rules), its `AGENTS.md` (layout and naming in its `STRUCTURE.md`). Read and follow them first. This file holds only this repository's own rules. An override may tighten or loosen a House Rules rule, and it names the rule it changes.
+
+Reviews: Warden, our review service, reviews pull requests on request: comment `/warden review` on the pull request.
 
 This repository owns neutral benchmark orchestration, scoring, records, and dashboard artifacts.
 Memory implementation behavior belongs in the system under test. Do not restore benchmark
